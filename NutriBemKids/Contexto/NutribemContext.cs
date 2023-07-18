@@ -1,10 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NutriBemKids.Negocios;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Reflection.Emit;
 
 namespace NutriBemKids.Contexto
 {
@@ -14,6 +10,13 @@ namespace NutriBemKids.Contexto
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=Nutribem;Trusted_connection=true;");
+
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Alunos>()
+                .HasKey(c => c.CodigoID);
         }
     }
 }

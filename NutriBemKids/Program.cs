@@ -12,17 +12,17 @@ namespace NutriBemKids
             using(var contexto =new NutribemContext())
             {
                 contexto.LogSQLToConsole();
-                foreach(var aluno in contexto.Aluno)
-                {
-                    Console.WriteLine(aluno);
-                }
+                //foreach (var aluno in contexto.Aluno.)
+                //{
+                //    Console.WriteLine(aluno);
+               // }
             }
         }
         private static void Adicionar()
         {
-            Alunos alunos = new Alunos();
+            Alunos alunos = new();
             alunos.Nome = Console.ReadLine();
-            alunos.Mensalidade = double.Parse(Console.ReadLine());
+            alunos.Mensalidade = decimal.Parse(Console.ReadLine());
             using (var contexto=new NutribemContext())
             {
                 contexto.Aluno.Add(alunos);
