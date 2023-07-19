@@ -10,10 +10,8 @@ namespace NutriBemKids
     {
         static void Main(string[] args)
         {
-
-            Metodos.AdicionarGasto();
+            Metodos.Sistemas();
         }
-
-        
+  
     }
 }
