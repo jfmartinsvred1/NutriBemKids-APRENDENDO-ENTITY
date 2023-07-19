@@ -25,5 +25,9 @@ namespace NutriBemKids.Negocios
         public decimal Valor { get; set; }
         [Column("Data")]
         public DateTime Data { get; set; }
+        public override string ToString()
+        {
+            return $"Tipo= {Tipo}\nValor= R$ {Valor}\n";
+        }
     }
 }

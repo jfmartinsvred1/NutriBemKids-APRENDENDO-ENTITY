@@ -59,7 +59,7 @@ namespace NutriBemKids.Extensions
                             //Metodos.ListarAluno();
                             break;
                         case '6':
-                            //Metodos.ListarGastos();
+                            Metodos.ListarGastos();
                             break;
                         case '7':
                             //Metodos.RemoverGastos();
@@ -120,11 +120,27 @@ namespace NutriBemKids.Extensions
 
             using (var context = new NutribemContext())
             {
-
-                foreach (var item in context.Aluno)
+                
+                foreach (var alunos in context.Aluno)
                 {
-                    Console.WriteLine(item);
+                    Console.WriteLine(alunos);
+                    
                 }
+                Console.ReadLine();
+            }
+        }
+        public static void ListarGastos()
+        {
+            Console.Clear();
+            using (var context = new NutribemContext())
+            {
+
+                foreach (var gastos in context.Gasto)
+                {
+                    Console.WriteLine(gastos);
+
+                }
+                Console.ReadLine();
             }
         }
     }
