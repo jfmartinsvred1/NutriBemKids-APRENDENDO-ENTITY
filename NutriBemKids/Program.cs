@@ -8,20 +8,15 @@ namespace NutriBemKids
     {
         static void Main(string[] args)
         {
+
             Adicionar();
-            using(var contexto =new NutribemContext())
-            {
-                contexto.LogSQLToConsole();
-                //foreach (var aluno in contexto.Aluno.)
-                //{
-                //    Console.WriteLine(aluno);
-               // }
-            }
         }
         private static void Adicionar()
         {
             Alunos alunos = new();
+            Console.Write("Nome: ");
             alunos.Nome = Console.ReadLine();
+            Console.Write("Valor Da Mensalidade: ");
             alunos.Mensalidade = decimal.Parse(Console.ReadLine());
             using (var contexto=new NutribemContext())
             {

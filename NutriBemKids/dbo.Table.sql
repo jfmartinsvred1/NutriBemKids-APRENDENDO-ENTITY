@@ -1,0 +1,5 @@
+﻿CREATE TABLE AssinaturaNutribem (
+    CodigoID UNIQUEIDENTIFIER  PRIMARY KEY,
+    Nome VARCHAR(100) NOT NULL,
+    Preco DECIMAL(10, 2) NOT NULL
+);
