@@ -19,5 +19,9 @@ namespace NutriBemKids.Negocios
         public string Nome { get; set; }
         [Column("Preco")]
         public decimal Mensalidade { get; set; }
+        public override string ToString()
+        {
+            return $"Aluno: {Nome}, Mensalidade Paga: {Mensalidade}";
+        }
     }
 }

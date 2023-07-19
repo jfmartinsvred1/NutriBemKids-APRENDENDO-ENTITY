@@ -1,6 +1,8 @@
 ﻿using Alura.Filmes.App.Extensions;
 using NutriBemKids.Contexto;
+using NutriBemKids.Extensions;
 using NutriBemKids.Negocios;
+using System.Globalization;
 
 namespace NutriBemKids
 {
@@ -9,21 +11,9 @@ namespace NutriBemKids
         static void Main(string[] args)
         {
 
-            Adicionar();
+            Metodos.AdicionarGasto();
         }
-        private static void Adicionar()
-        {
-            Alunos alunos = new();
-            Console.Write("Nome: ");
-            alunos.Nome = Console.ReadLine();
-            Console.Write("Valor Da Mensalidade: ");
-            alunos.Mensalidade = decimal.Parse(Console.ReadLine());
-            using (var contexto=new NutribemContext())
-            {
-                contexto.Aluno.Add(alunos);
-                contexto.SaveChanges();
 
-            }
-        }
+        
     }
 }

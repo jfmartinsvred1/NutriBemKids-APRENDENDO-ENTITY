@@ -7,6 +7,7 @@ namespace NutriBemKids.Contexto
     public class NutribemContext:DbContext
     {
         public DbSet<Alunos> Aluno { get; set; }
+        public DbSet<Gastos> Gasto { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=Nutribem;Trusted_connection=true;");
