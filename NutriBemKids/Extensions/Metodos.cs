@@ -1,7 +1,9 @@
-﻿using NutriBemKids.Contexto;
+﻿using Microsoft.EntityFrameworkCore.Query.Internal;
+using NutriBemKids.Contexto;
 using NutriBemKids.Negocios;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -16,7 +18,7 @@ namespace NutriBemKids.Extensions
             try
             {
                 char opcao = '0';
-                while (opcao != '8')
+                while (opcao != '9')
                 {
                     Console.Clear();
                     Console.WriteLine("===============================");
@@ -26,9 +28,10 @@ namespace NutriBemKids.Extensions
                     Console.WriteLine("===3 - Remover Aluno        ===");
                     Console.WriteLine("===4 - Cadastrar Gasto      ===");
                     Console.WriteLine("===5 - Pesquisar Aluno      ===");
-                    Console.WriteLine("===6 - Pesquisar Gastos     ===");
+                    Console.WriteLine("===6 - Listar Gastos        ===");
                     Console.WriteLine("===7 - Remover Gastos       ===");
-                    Console.WriteLine("===8 - Sair do Sistema      ===");
+                    Console.WriteLine("===8 - Faturamento          ===");
+                    Console.WriteLine("===9 - Sair do Sistema      ===");
                     Console.WriteLine("===============================");
                     Console.WriteLine("\n\n");
                     Console.Write("Digite a opção desejada: ");
@@ -65,6 +68,9 @@ namespace NutriBemKids.Extensions
                             //Metodos.RemoverGastos();
                             break;
                         case '8':
+                            FaturamentoTotal();
+                            break;
+                        case '9':
                             break;
                         default:
                             Console.WriteLine("Opcao não implementada.");
@@ -142,6 +148,25 @@ namespace NutriBemKids.Extensions
                 }
                 Console.ReadLine();
             }
+        }
+        public static void FaturamentoTotal()
+        {
+
+            decimal soma = 0;
+            Console.Clear();
+            using(var context = new NutribemContext())
+            {
+                foreach(var alunos in context.Aluno)
+                {
+                    soma += alunos.Mensalidade;
+
+                }
+                
+
+
+            }
+            Console.WriteLine($"Faturamento Total De: R$ {soma.ToString("f2", CultureInfo.InvariantCulture)}");
+            Console.ReadLine();
         }
     }
 }

@@ -22,7 +22,7 @@ namespace NutriBemKids.Negocios
         public decimal Mensalidade { get; set; }
         public override string ToString()
         {
-            return $"Aluno: {Nome}, Mensalidade Paga: R${Mensalidade.ToString(CultureInfo.InvariantCulture)}";
+            return $"Aluno: {Nome}\nMensalidade Paga: R${Mensalidade.ToString("f2",CultureInfo.InvariantCulture)}\n";
         }
     }
 }
