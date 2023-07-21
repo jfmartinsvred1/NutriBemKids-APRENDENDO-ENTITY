@@ -16,8 +16,16 @@ namespace NutriBemKids.Contexto
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Alunos>()
+            modelBuilder.Entity<Alunos>()               
                 .HasKey(c => c.CodigoID);
+            modelBuilder.Entity<Alunos>()
+                .ToTable("AssinaturaNutribem");
+            modelBuilder.Entity<Alunos>()
+                .Property(n => n.Nome)
+                .HasColumnName("Nome");
+            modelBuilder.Entity<Alunos>()
+                .Property(n => n.Mensalidade)
+                .HasColumnName("Preco");
         }
     }
 }

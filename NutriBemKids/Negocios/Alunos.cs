@@ -5,7 +5,7 @@ using System.Globalization;
 
 namespace NutriBemKids.Negocios
 {
-    [Table("AssinaturaNutribem")]
+    
     public class Alunos
     {
         public Alunos()
@@ -16,9 +16,7 @@ namespace NutriBemKids.Negocios
         [Column("CodigoID")]
         [Key]
         public Guid CodigoID { get; set; }
-        [Column("Nome")]
         public string Nome { get; set; }
-        [Column("Preco")]
         public decimal Mensalidade { get; set; }
         public override string ToString()
         {

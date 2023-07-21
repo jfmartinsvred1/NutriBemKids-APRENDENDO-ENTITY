@@ -123,6 +123,7 @@ namespace NutriBemKids.Extensions
         }
         public static void ListarAlunos()
         {
+            Console.Clear();
 
             using (var context = new NutribemContext())
             {
