@@ -26,10 +26,10 @@ namespace NutriBemKids.Extensions
                     Console.WriteLine("===1 - Cadastrar Aluno      ===");
                     Console.WriteLine("===2 - Listar Alunos        ===");
                     Console.WriteLine("===3 - Remover Aluno        ===");
-                    Console.WriteLine("===4 - Cadastrar Gasto      ===");
+                    Console.WriteLine("===4 - Adicionar Ao Estoque ===");
                     Console.WriteLine("===5 - Pesquisar Aluno      ===");
-                    Console.WriteLine("===6 - Listar Gastos        ===");
-                    Console.WriteLine("===7 - Remover Gastos       ===");
+                    Console.WriteLine("===6 - Listar Estoque       ===");
+                    Console.WriteLine("===7 - Remover Do Estoque   ===");
                     Console.WriteLine("===8 - Faturamento          ===");
                     Console.WriteLine("===9 - Sair do Sistema      ===");
                     Console.WriteLine("===============================");
@@ -53,19 +53,19 @@ namespace NutriBemKids.Extensions
                             ListarAlunos();
                             break;
                         case '3':
-                            //Metodos.RemoverAluno();
+                            RemoverAluno();
                             break;
                         case '4':
-                            AdicionarGasto();
+                            AdicionarAoEstoque();
                             break;
                         case '5':
-                            //Metodos.ListarAluno();
+                            PesquisarAluno();
                             break;
                         case '6':
-                            Metodos.ListarGastos();
+                            ListarEstoque();
                             break;
                         case '7':
-                            //Metodos.RemoverGastos();
+                            //Metodos.RemoverDoEstoque();
                             break;
                         case '8':
                             FaturamentoTotal();
@@ -73,7 +73,7 @@ namespace NutriBemKids.Extensions
                         case '9':
                             break;
                         default:
-                            Console.WriteLine("Opcao não implementada.");
+                            Console.WriteLine("Opção não implementada.");
                             break;
                     }
                 }
@@ -86,7 +86,7 @@ namespace NutriBemKids.Extensions
             }
 
         }
-        public static void AdicionarGasto()
+        public static void AdicionarAoEstoque()
         {
             Console.Clear();
             Estoque estoque= new Estoque();
@@ -96,11 +96,10 @@ namespace NutriBemKids.Extensions
             Console.Write("Tipo: ");
             estoque.Tipo = Console.ReadLine();
             Console.Write("Valor Do Produto: R$ ");
-            var valor= decimal.Parse(Console.ReadLine(),CultureInfo.InvariantCulture);
+            double valor= double.Parse(Console.ReadLine().Replace(',','.'),CultureInfo.InvariantCulture);
             Console.Write($"Informe A Quantidade De {estoque.Nome}: ");
-            var qntd = int.Parse(Console.ReadLine());
-            var valorUnitario = valor / qntd;
-            estoque.ValorUnitario = valorUnitario;
+            int qntd = int.Parse(Console.ReadLine());
+            estoque.ValorUnitario = ((valor/qntd));
             estoque.Quantidade = qntd;
             using (var contexto = new NutribemContext())
             {
@@ -142,7 +141,7 @@ namespace NutriBemKids.Extensions
                 Console.ReadLine();
             }
         }
-        public static void ListarGastos()
+        public static void ListarEstoque()
         {
             Console.Clear();
             using (var context = new NutribemContext())
@@ -174,6 +173,43 @@ namespace NutriBemKids.Extensions
             }
             Console.WriteLine($"Faturamento Total De: R$ {soma.ToString("f2", CultureInfo.InvariantCulture)}");
             Console.ReadLine();
+        }
+        public static void RemoverAluno()
+        {
+            Console.Clear();
+            Console.Write("Nome Do Aluno: ");
+            var nome=Console.ReadLine();
+
+            using(var a =new NutribemContext())
+            {
+                IList<Alunos> aluno=a.Aluno.ToList();
+                foreach(var item in aluno)
+                {
+                    if(item.Nome==nome)
+                    
+                    a.Aluno.Remove(item);
+                }
+                a.SaveChanges();
+            }
+        }
+        public static void PesquisarAluno()
+        {
+            Console.Clear();
+            
+            using(var a = new NutribemContext())
+            {
+                Console.Write("Nome Do Aluno: ");
+                var nome = Console.ReadLine();
+                foreach (var item in a.Aluno)
+                {
+                    if (item.Nome == nome)
+                    {
+                        Console.WriteLine(item); ;
+                    }
+                }
+                Console.ReadLine();
+            }
+            
         }
     }
 }
