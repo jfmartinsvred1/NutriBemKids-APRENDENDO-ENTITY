@@ -7,7 +7,7 @@ namespace NutriBemKids.Contexto
     public class NutribemContext:DbContext
     {
         public DbSet<Alunos> Aluno { get; set; }
-        public DbSet<Gastos> Gasto { get; set; }
+        public DbSet<Estoque> Estoque { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=Nutribem;Trusted_connection=true;");
@@ -26,6 +26,28 @@ namespace NutriBemKids.Contexto
             modelBuilder.Entity<Alunos>()
                 .Property(n => n.Mensalidade)
                 .HasColumnName("Preco");
+
+
+
+            modelBuilder.Entity<Estoque>()
+                .HasKey(i => i.Id);
+            modelBuilder.Entity<Estoque>()
+                .ToTable("EstoqueNutribem");
+            modelBuilder.Entity<Estoque>()
+                .Property(n => n.Nome)
+                .HasColumnName("Nome");
+            modelBuilder.Entity<Estoque>()
+                .Property(n => n.Quantidade)
+                .HasColumnName("Quantidade");
+            modelBuilder.Entity<Estoque>()
+                .Property(n => n.ValorUnitario)
+                .HasColumnName("ValorUnitario");
+            modelBuilder.Entity<Estoque>()
+                .Property(n => n.Tipo)
+                .HasColumnName("Tipo");
+            modelBuilder.Entity<Estoque>()
+                .Property(d => d.Data)
+                .HasColumnName("Data");
         }
     }
 }

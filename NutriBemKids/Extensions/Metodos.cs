@@ -89,16 +89,16 @@ namespace NutriBemKids.Extensions
         public static void AdicionarGasto()
         {
             Console.Clear();
-            Gastos gastos= new Gastos();
+            Estoque estoque= new Estoque();
             Console.WriteLine("================ GASTOS =================");
             Console.Write("Tipo: ");
-            gastos.Tipo = Console.ReadLine();
+            estoque.Tipo = Console.ReadLine();
             Console.Write("Valor Do Gasto: R$ ");
-            gastos.Valor = decimal.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+            estoque.ValorUnitario = decimal.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
 
             using (var contexto = new NutribemContext())
             {
-                contexto.Gasto.Add(gastos);
+                contexto.Estoque.Add(estoque);
                 contexto.SaveChanges();
 
             }
@@ -142,7 +142,7 @@ namespace NutriBemKids.Extensions
             using (var context = new NutribemContext())
             {
 
-                foreach (var gastos in context.Gasto)
+                foreach (var gastos in context.Estoque)
                 {
                     Console.WriteLine(gastos);
 
