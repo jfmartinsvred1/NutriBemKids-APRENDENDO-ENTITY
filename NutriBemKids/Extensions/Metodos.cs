@@ -90,12 +90,18 @@ namespace NutriBemKids.Extensions
         {
             Console.Clear();
             Estoque estoque= new Estoque();
-            Console.WriteLine("================ GASTOS =================");
+            Console.WriteLine("================ Estoque =================");
+            Console.Write("Nome: ");
+            estoque.Nome = Console.ReadLine();
             Console.Write("Tipo: ");
             estoque.Tipo = Console.ReadLine();
-            Console.Write("Valor Do Gasto: R$ ");
-            estoque.ValorUnitario = decimal.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
-
+            Console.Write("Valor Do Produto: R$ ");
+            var valor= decimal.Parse(Console.ReadLine(),CultureInfo.InvariantCulture);
+            Console.Write($"Informe A Quantidade De {estoque.Nome}: ");
+            var qntd = int.Parse(Console.ReadLine());
+            var valorUnitario = valor / qntd;
+            estoque.ValorUnitario = valorUnitario;
+            estoque.Quantidade = qntd;
             using (var contexto = new NutribemContext())
             {
                 contexto.Estoque.Add(estoque);
@@ -142,9 +148,9 @@ namespace NutriBemKids.Extensions
             using (var context = new NutribemContext())
             {
 
-                foreach (var gastos in context.Estoque)
+                foreach (var estoque in context.Estoque)
                 {
-                    Console.WriteLine(gastos);
+                    Console.WriteLine(estoque);
 
                 }
                 Console.ReadLine();

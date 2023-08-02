@@ -30,5 +30,14 @@ namespace NutriBemKids.Negocios
         public string Tipo { get; set; }
         [Column("Data")]
         public DateTime Data { get; set; }
+        public override string ToString()
+        {
+            return $"Produto: {Nome} \nQuantidade: {Quantidade} \n" +
+                $"Tipo: {Tipo} \n" +
+                $"Ultima Alteração: {Data:D} \n" +
+                $"Valor Unitario Gasto: R$ {ValorUnitario}\n" +
+                $"----------------------------------------------------";
+        }
     }
+
 }
