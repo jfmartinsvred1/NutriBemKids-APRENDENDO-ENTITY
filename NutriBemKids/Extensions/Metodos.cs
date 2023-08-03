@@ -26,10 +26,10 @@ namespace NutriBemKids.Extensions
                     Console.WriteLine("===1 - Cadastrar Aluno      ===");
                     Console.WriteLine("===2 - Listar Alunos        ===");
                     Console.WriteLine("===3 - Remover Aluno        ===");
-                    Console.WriteLine("===4 - Adicionar Ao Estoque ===");
+                    Console.WriteLine("===4 - Cadastrar No Estoque ===");
                     Console.WriteLine("===5 - Pesquisar Aluno      ===");
                     Console.WriteLine("===6 - Listar Estoque       ===");
-                    Console.WriteLine("===7 - Remover Do Estoque   ===");
+                    Console.WriteLine("===7 - Atualizar Estoque    ===");
                     Console.WriteLine("===8 - Faturamento          ===");
                     Console.WriteLine("===9 - Sair do Sistema      ===");
                     Console.WriteLine("===============================");
@@ -56,7 +56,7 @@ namespace NutriBemKids.Extensions
                             RemoverAluno();
                             break;
                         case '4':
-                            AdicionarAoEstoque();
+                            CadastrarNovoProdutoEstoque();
                             break;
                         case '5':
                             PesquisarAluno();
@@ -65,12 +65,13 @@ namespace NutriBemKids.Extensions
                             ListarEstoque();
                             break;
                         case '7':
-                            //Metodos.RemoverDoEstoque();
+                            AtualizarEstoque();
                             break;
                         case '8':
                             FaturamentoTotal();
                             break;
                         case '9':
+
                             break;
                         default:
                             Console.WriteLine("Opção não implementada.");
@@ -86,23 +87,62 @@ namespace NutriBemKids.Extensions
             }
 
         }
-        public static void AdicionarAoEstoque()
+        public static void AtualizarEstoque()
+        {
+            Console.Clear();
+            Console.Write("Nome Do Produto: ");
+            var nome = Console.ReadLine();
+            using (var e = new NutribemContext())
+            {
+                IList<Estoque> es = e.Estoque.ToList();
+                foreach (var item in es)
+                {
+
+                    if (item.Nome == nome)
+                    {
+                        Console.Write("Deseja Adicionar Ou Remover(a/r): ");
+                        char resp=char.Parse(Console.ReadLine());
+                        if (resp == 'r')
+                        {
+                            Console.Write($"Deseja Remover Quantos {item.Nome} do estoque: ");
+                            item.Quantidade-=int.Parse(Console.ReadLine());
+                            e.Estoque.Update(item);
+                            e.SaveChanges();
+                        }
+                        if(resp == 'a')
+                        {
+                            double valorAntigoTotal=item.Quantidade*item.ValorUnitario;
+                            Console.Write($"Deseja Adicionar Quantos {item.Nome} Ao Estoque: ");
+                            item.Quantidade+=int.Parse(Console.ReadLine());
+                            Console.Write("Valor Total Pago: ");
+                            double valorNovo=double.Parse(Console.ReadLine());
+                            item.ValorUnitario=(valorAntigoTotal+valorNovo)/item.Quantidade;
+                            e.Estoque.Update(item);
+                            e.SaveChanges();
+                        }
+                    }
+                }
+            }
+        }
+        public static void CadastrarNovoProdutoEstoque()
         {
             Console.Clear();
             Estoque estoque= new Estoque();
-            Console.WriteLine("================ Estoque =================");
-            Console.Write("Nome: ");
-            estoque.Nome = Console.ReadLine();
-            Console.Write("Tipo: ");
-            estoque.Tipo = Console.ReadLine();
-            Console.Write("Valor Do Produto: R$ ");
-            double valor= double.Parse(Console.ReadLine().Replace(',','.'),CultureInfo.InvariantCulture);
-            Console.Write($"Informe A Quantidade De {estoque.Nome}: ");
-            int qntd = int.Parse(Console.ReadLine());
-            estoque.ValorUnitario = ((valor/qntd));
-            estoque.Quantidade = qntd;
+           
             using (var contexto = new NutribemContext())
             {
+                Console.WriteLine("================ Estoque =================");
+                Console.Write("Nome: ");
+                estoque.Nome = Console.ReadLine();
+                Console.Write("Tipo: ");
+                estoque.Tipo = Console.ReadLine();
+                Console.Write("Valor Do Produto: R$ ");
+                double valor = double.Parse(Console.ReadLine().Replace(',', '.'), CultureInfo.InvariantCulture);
+                Console.Write($"Informe A Quantidade De {estoque.Nome}: ");
+                int qntd = int.Parse(Console.ReadLine());
+                estoque.ValorUnitario = ((valor / qntd));
+                estoque.Quantidade = qntd;
+
                 contexto.Estoque.Add(estoque);
                 contexto.SaveChanges();
 
@@ -195,21 +235,22 @@ namespace NutriBemKids.Extensions
         public static void PesquisarAluno()
         {
             Console.Clear();
-            
+            Console.Write("Nome Do Aluno: ");
+            var nome= Console.ReadLine();
             using(var a = new NutribemContext())
             {
-                Console.Write("Nome Do Aluno: ");
-                var nome = Console.ReadLine();
-                foreach (var item in a.Aluno)
+                IList<Alunos> aluno =a.Aluno.ToList();
+                foreach(var item in aluno)
                 {
+
                     if (item.Nome == nome)
                     {
                         Console.WriteLine(item); ;
                     }
                 }
-                Console.ReadLine();
+
             }
-            
+            Console.ReadLine();
         }
     }
 }

@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Globalization;
 
 namespace NutriBemKids.Negocios
 {
@@ -36,7 +37,7 @@ namespace NutriBemKids.Negocios
                 $"Quantidade: {Quantidade} \n" +
                 $"Tipo: {Tipo} \n" +
                 $"Ultima Alteração: {Data:dd/MM/yyyy} \n" +
-                $"Valor Unitario Gasto: R$ {ValorUnitario}\n" +
+                $"Valor Unitario Gasto: R${ValorUnitario.ToString("f2",CultureInfo.InvariantCulture)}\n" +
                 $"-----------------------------------";
         }
     }
