@@ -92,6 +92,7 @@ namespace NutriBemKids.Extensions
             Console.Clear();
             Console.Write("Nome Do Produto: ");
             var nome = Console.ReadLine();
+            bool encontrado=false;
             using (var e = new NutribemContext())
             {
                 IList<Estoque> es = e.Estoque.ToList();
@@ -100,6 +101,7 @@ namespace NutriBemKids.Extensions
 
                     if (item.Nome == nome)
                     {
+                        encontrado = true;
                         Console.Write("Deseja Adicionar Ou Remover(a/r): ");
                         char resp=char.Parse(Console.ReadLine());
                         if (resp == 'r')
@@ -108,6 +110,7 @@ namespace NutriBemKids.Extensions
                             item.Quantidade-=int.Parse(Console.ReadLine());
                             e.Estoque.Update(item);
                             e.SaveChanges();
+                            
                         }
                         if(resp == 'a')
                         {
@@ -121,6 +124,11 @@ namespace NutriBemKids.Extensions
                             e.SaveChanges();
                         }
                     }
+                }
+                if (encontrado==false) 
+                {
+                    Console.WriteLine("Produto Não Cadastrado No Estoque.");
+                    Console.ReadLine(); 
                 }
             }
         }
