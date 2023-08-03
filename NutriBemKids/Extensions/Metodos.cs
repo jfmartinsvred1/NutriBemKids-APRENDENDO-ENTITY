@@ -92,7 +92,7 @@ namespace NutriBemKids.Extensions
             Console.Clear();
             Console.Write("Nome Do Produto: ");
             var nome = Console.ReadLine();
-            bool encontrado=false;
+            bool encontrado = false;
             using (var e = new NutribemContext())
             {
                 IList<Estoque> es = e.Estoque.ToList();
@@ -103,40 +103,40 @@ namespace NutriBemKids.Extensions
                     {
                         encontrado = true;
                         Console.Write("Deseja Adicionar Ou Remover(a/r): ");
-                        char resp=char.Parse(Console.ReadLine());
+                        char resp = char.Parse(Console.ReadLine());
                         if (resp == 'r')
                         {
                             Console.Write($"Deseja Remover Quantos {item.Nome} do estoque: ");
-                            item.Quantidade-=int.Parse(Console.ReadLine());
+                            item.Quantidade -= int.Parse(Console.ReadLine());
                             e.Estoque.Update(item);
                             e.SaveChanges();
-                            
+
                         }
-                        if(resp == 'a')
+                        if (resp == 'a')
                         {
-                            double valorAntigoTotal=item.Quantidade*item.ValorUnitario;
+                            double valorAntigoTotal = item.Quantidade * item.ValorUnitario;
                             Console.Write($"Deseja Adicionar Quantos {item.Nome} Ao Estoque: ");
-                            item.Quantidade+=int.Parse(Console.ReadLine());
+                            item.Quantidade += int.Parse(Console.ReadLine());
                             Console.Write("Valor Total Pago: ");
-                            double valorNovo=double.Parse(Console.ReadLine());
-                            item.ValorUnitario=(valorAntigoTotal+valorNovo)/item.Quantidade;
+                            double valorNovo = double.Parse(Console.ReadLine());
+                            item.ValorUnitario = (valorAntigoTotal + valorNovo) / item.Quantidade;
                             e.Estoque.Update(item);
                             e.SaveChanges();
                         }
                     }
                 }
-                if (encontrado==false) 
+                if (encontrado == false)
                 {
                     Console.WriteLine("Produto Não Cadastrado No Estoque.");
-                    Console.ReadLine(); 
+                    Console.ReadLine();
                 }
             }
         }
         public static void CadastrarNovoProdutoEstoque()
         {
             Console.Clear();
-            Estoque estoque= new Estoque();
-           
+            Estoque estoque = new Estoque();
+
             using (var contexto = new NutribemContext())
             {
                 Console.WriteLine("================ Estoque =================");
@@ -180,11 +180,11 @@ namespace NutriBemKids.Extensions
 
             using (var context = new NutribemContext())
             {
-                
+
                 foreach (var alunos in context.Aluno)
                 {
                     Console.WriteLine(alunos);
-                    
+
                 }
                 Console.ReadLine();
             }
@@ -208,14 +208,14 @@ namespace NutriBemKids.Extensions
 
             decimal soma = 0;
             Console.Clear();
-            using(var context = new NutribemContext())
+            using (var context = new NutribemContext())
             {
-                foreach(var alunos in context.Aluno)
+                foreach (var alunos in context.Aluno)
                 {
                     soma += alunos.Mensalidade;
 
                 }
-                
+
 
 
             }
@@ -226,15 +226,13 @@ namespace NutriBemKids.Extensions
         {
             Console.Clear();
             Console.Write("Nome Do Aluno: ");
-            var nome=Console.ReadLine();
+            var nome = Console.ReadLine();
 
-            using(var a =new NutribemContext())
+            using (var a = new NutribemContext())
             {
-                IList<Alunos> aluno=a.Aluno.ToList();
-                foreach(var item in aluno)
+                var pesquisa = a.Aluno.Where(a => a.Nome == nome).ToList();
+                foreach (var item in pesquisa)
                 {
-                    if(item.Nome==nome)
-                    
                     a.Aluno.Remove(item);
                 }
                 a.SaveChanges();
@@ -244,20 +242,17 @@ namespace NutriBemKids.Extensions
         {
             Console.Clear();
             Console.Write("Nome Do Aluno: ");
-            var nome= Console.ReadLine();
-            using(var a = new NutribemContext())
+            var nome = Console.ReadLine();
+            using (var a = new NutribemContext())
             {
-                IList<Alunos> aluno =a.Aluno.ToList();
-                foreach(var item in aluno)
+                var busca = a.Aluno.Where(a => a.Nome == nome);
+                foreach (var item in busca)
                 {
-
-                    if (item.Nome == nome)
-                    {
-                        Console.WriteLine(item); ;
-                    }
+                    Console.WriteLine(item);
                 }
 
             }
+            Console.WriteLine("Enter para voltar pro menu.");
             Console.ReadLine();
         }
     }
