@@ -10,9 +10,21 @@ namespace NutriBemKids
     {
         static void Main(string[] args)
         {
-            Metodos.Sistemas();
 
+            using (var context = new NutribemContext())
+            {
+                var aluna = new Alunos();
+                aluna.Nome = "maria julieta";
+                aluna.Mensalidade = 3230;
 
+                var mae = new Mae();
+                mae.Nome = "Maiardsda";
+                mae.Filho = aluna;
+                context.Aluno.Add(aluna);
+                context.Maes.Add(mae);
+                context.SaveChanges();
+            }
+            
         }
   
     }

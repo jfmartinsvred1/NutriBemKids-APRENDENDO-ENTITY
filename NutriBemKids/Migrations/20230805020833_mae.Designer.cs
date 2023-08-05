@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NutriBemKids.Contexto;
 
@@ -11,9 +12,11 @@ using NutriBemKids.Contexto;
 namespace NutriBemKids.Migrations
 {
     [DbContext(typeof(NutribemContext))]
-    partial class NutribemContextModelSnapshot : ModelSnapshot
+    [Migration("20230805020833_mae")]
+    partial class mae
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -41,7 +44,7 @@ namespace NutriBemKids.Migrations
 
                     b.HasIndex("FilhoCodigoID");
 
-                    b.ToTable("Maes", (string)null);
+                    b.ToTable("Maes");
                 });
 
             modelBuilder.Entity("NutriBemKids.Negocios.Alunos", b =>

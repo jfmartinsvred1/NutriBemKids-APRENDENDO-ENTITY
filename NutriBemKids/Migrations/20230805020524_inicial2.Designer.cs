@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NutriBemKids.Contexto;
 
@@ -11,9 +12,11 @@ using NutriBemKids.Contexto;
 namespace NutriBemKids.Migrations
 {
     [DbContext(typeof(NutribemContext))]
-    partial class NutribemContextModelSnapshot : ModelSnapshot
+    [Migration("20230805020524_inicial2")]
+    partial class inicial2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,28 +24,6 @@ namespace NutriBemKids.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("NutriBemKids.Mae", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<Guid>("FilhoCodigoID")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("FilhoCodigoID");
-
-                    b.ToTable("Maes", (string)null);
-                });
 
             modelBuilder.Entity("NutriBemKids.Negocios.Alunos", b =>
                 {
@@ -97,17 +78,6 @@ namespace NutriBemKids.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("EstoqueNutribem", (string)null);
-                });
-
-            modelBuilder.Entity("NutriBemKids.Mae", b =>
-                {
-                    b.HasOne("NutriBemKids.Negocios.Alunos", "Filho")
-                        .WithMany()
-                        .HasForeignKey("FilhoCodigoID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Filho");
                 });
 #pragma warning restore 612, 618
         }
