@@ -165,7 +165,6 @@ namespace NutriBemKids.Extensions
             Console.Write("Nome: ");
             alunos.Nome = Console.ReadLine();
             Console.Write("Valor Da Mensalidade: R$ ");
-            alunos.Mensalidade = decimal.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
             using (var contexto = new NutribemContext())
             {
                 contexto.Aluno.Add(alunos);
@@ -212,7 +211,6 @@ namespace NutriBemKids.Extensions
             {
                 foreach (var alunos in context.Aluno)
                 {
-                    soma += alunos.Mensalidade;
 
                 }
 

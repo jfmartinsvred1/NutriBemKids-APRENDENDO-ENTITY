@@ -13,14 +13,12 @@ namespace NutriBemKids
 
             using (var context = new NutribemContext())
             {
-                var aluna = new Alunos();
-                aluna.Nome = "maria julieta";
-                aluna.Mensalidade = 3230;
+                
 
                 var mae = new Mae();
                 mae.Nome = "Maiardsda";
-                mae.Filho = aluna;
-                context.Aluno.Add(aluna);
+                mae.Filho = "Maiara";
+                mae.QuantidadeFilhos = 5;
                 context.Maes.Add(mae);
                 context.SaveChanges();
             }

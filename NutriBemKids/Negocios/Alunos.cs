@@ -19,11 +19,10 @@ namespace NutriBemKids.Negocios
         public Guid CodigoID { get; set; }
         [Column("Nome")]
         public string Nome { get; set; }
-        [Column("Preco")]
-        public decimal Mensalidade { get; set; } 
+        public Mae Mae { get; set; }
         public override string ToString()
         {
-            return $"Aluno: {Nome}\nMensalidade Paga: R${Mensalidade.ToString("f2",CultureInfo.InvariantCulture)}\n";
+            return $"Aluno: {Nome}\nMensalidade Paga: R$\n";
         }
     }
 }

@@ -24,9 +24,7 @@ namespace NutriBemKids.Contexto
             modelBuilder.Entity<Alunos>()
                 .Property(n => n.Nome)
                 .HasColumnName("Nome");
-            modelBuilder.Entity<Alunos>()
-                .Property(n => n.Mensalidade)
-                .HasColumnName("Preco");
+            
 
 
 
